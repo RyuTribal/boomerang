@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Card">
+      <UniqueIdentifier>{B769BA15-23D4-6E8C-6C12-2032D8BB4CE1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\ECS">
+      <UniqueIdentifier>{780F99C2-64DC-F3CD-8DF5-E1757921295C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GameConfig">
+      <UniqueIdentifier>{6D434207-D9CE-AFCB-E2DF-32C04EEA0BCC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Player">
+      <UniqueIdentifier>{8AE50C8D-F69A-8582-7F8F-7F59EB437C86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Net">
+      <UniqueIdentifier>{2C0C880B-9815-887C-2191-9E7C8D99937C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayerTypes">
+      <UniqueIdentifier>{C773F689-3329-6F7F-BC1D-695628D26583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RuleSets">
+      <UniqueIdentifier>{9C4D675A-881A-C265-B133-B00D9D5FF7F3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RuleSets\Australian">
+      <UniqueIdentifier>{7F67F886-EBC8-D594-7436-1C47E0960C54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RuleSets\Australian\Cards">
+      <UniqueIdentifier>{1BCD2332-878F-57BC-D03F-E6483C41309A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RuleSets\Australian\GameConfig">
+      <UniqueIdentifier>{1EA281C8-0AC8-4B2F-F30D-D1FADFD270FB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RuleSets\Australian\PlayerState">
+      <UniqueIdentifier>{5C5A16F3-C83D-2533-D140-536F3DA3EB83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RuleSets\Australian\ScoringSystems">
+      <UniqueIdentifier>{5B042143-4740-24AD-B052-3CA49CADCCC7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{23A78D7C-0FDE-8E0D-B8CA-7410A4E00A0F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Boomerang.h" />
+    <ClInclude Include="src\Core.h" />
+    <ClInclude Include="src\Core\Card\Card.h">
+      <Filter>Core\Card</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Card\Components.h">
+      <Filter>Core\Card</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Deck.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Directions.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\ECS\Component.h">
+      <Filter>Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\ECS\Entity.h">
+      <Filter>Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\ECS\System.h">
+      <Filter>Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\GameConfig\Components.h">
+      <Filter>Core\GameConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\GameConfig\Config.h">
+      <Filter>Core\GameConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\GameVariant.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Player\Components.h">
+      <Filter>Core\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Player\Player.h">
+      <Filter>Core\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\ScoringSystem.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntryPoint.h" />
+    <ClInclude Include="src\Net\Client.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Net\Network.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\NetInstance.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsClient.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsNetwork.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerTypes\BotPlayer.h">
+      <Filter>PlayerTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerTypes\PlayablePlayer.h">
+      <Filter>PlayerTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerTypes\PlayerFactory.h">
+      <Filter>PlayerTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\AustralianDeck.h">
+      <Filter>RuleSets\Australian</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\AustralianVariant.h">
+      <Filter>RuleSets\Australian</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\Cards\Components.h">
+      <Filter>RuleSets\Australian\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\GameConfig\Components.h">
+      <Filter>RuleSets\Australian\GameConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\PlayerState\Components.h">
+      <Filter>RuleSets\Australian\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\ScoringSystems\Activities.h">
+      <Filter>RuleSets\Australian\ScoringSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\ScoringSystems\Animals.h">
+      <Filter>RuleSets\Australian\ScoringSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\ScoringSystems\Collection.h">
+      <Filter>RuleSets\Australian\ScoringSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\ScoringSystems\Systems.h">
+      <Filter>RuleSets\Australian\ScoringSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\ScoringSystems\ThrowCatch.h">
+      <Filter>RuleSets\Australian\ScoringSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\Australian\ScoringSystems\TouristSite.h">
+      <Filter>RuleSets\Australian\ScoringSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSets\VariantFactory.h">
+      <Filter>RuleSets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\Log.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\MessageParser.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\Random.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\ThreadPool.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Boomerang.cpp" />
+    <ClCompile Include="src\Core\Deck.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Net\Client.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Net\Network.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsClient.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsNetwork.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayerTypes\BotPlayer.cpp">
+      <Filter>PlayerTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayerTypes\PlayablePlayer.cpp">
+      <Filter>PlayerTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayerTypes\PlayerFactory.cpp">
+      <Filter>PlayerTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuleSets\Australian\AustralianVariant.cpp">
+      <Filter>RuleSets\Australian</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuleSets\VariantFactory.cpp">
+      <Filter>RuleSets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util\Log.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+</Project>
