@@ -45,6 +45,9 @@ bin-int/
 
 # Files
 *.user
+*.sln
+*.vcxproj.filters
+*.vcxproj
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
