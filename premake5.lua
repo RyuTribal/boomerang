@@ -41,7 +41,6 @@ project "Boomerang"
     includedirs
     {
         "%{prj.name}/vendor/spdlog/include",
-        "%{prj.name}/vendor/tabulate/include",
         "%{prj.name}/src"
     }
 
