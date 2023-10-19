@@ -16,6 +16,8 @@ namespace Boomerang
             {"Koalas", 7},
             {"Platypuses", 9}
         };
+
+        std::string type_name() override { return "AnimalScoreMap"; }
     };
 
     class CollectionScoreMapComponent : public Component {
@@ -26,6 +28,8 @@ namespace Boomerang
             {"Shells", 3},
             {"Souvenirs", 5}
         };
+
+        std::string type_name() override { return "CollectionScoreMapComponent"; }
     };
 
     class ActivityScoreMapComponent : public Component {
@@ -38,6 +42,8 @@ namespace Boomerang
             {5, 10},
             {6, 15}
         };
+
+        std::string type_name() override { return "ActivityScoreMapComponent"; };
     };
 
     class RegionSiteMapComponent : public Component {
@@ -51,11 +57,15 @@ namespace Boomerang
             {"Victoria", "UVWX"},
             {"Tasmania", "YZ*-"}
         };
+
+        std::string type_name() override { return "RegionSiteMapComponent"; }
     };
 
     class CollectionMaxComponent : public Component {
     public:
         int value = 7;
+
+        std::string type_name() override { return "CollectionMaxComponent"; }
     };
 
     class ListActivitiesComponent : public Component
@@ -67,5 +77,7 @@ namespace Boomerang
             "Bushwalking",
             "Swimming"
         };
+
+        std::string type_name() override { return "ListActivitiesComponent"; }
     };
 }

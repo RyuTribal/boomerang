@@ -36,6 +36,8 @@ namespace Boomerang
 
 			return card_info;
 		}
+
+		std::string type_name() override { return "Card"; }
 		
 	private:
 		int m_ID;

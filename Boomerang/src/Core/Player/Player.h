@@ -100,6 +100,27 @@ namespace Boomerang
 
 		virtual std::tuple<int, int> ChooseCard(std::vector<Card*>& cards, bool automatic_choice) = 0;
 
+		std::string type_name() override { return "Player"; }
+
+		std::string DraftToString(bool ignore_throw)
+		{
+			std::string draft_string = "";
+			bool first = true;
+			for(Card* card : *GetDraft())
+			{
+				if(first && ignore_throw)
+				{
+					draft_string += "----------------------------------------\n";
+					first = false;
+				}
+				else
+				{
+					draft_string += card->ToString()+ "\n";
+				}
+			}
+			return draft_string;
+		}
+
 	private:
 		int _id;
 	};

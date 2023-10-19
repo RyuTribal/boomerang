@@ -12,5 +12,7 @@ namespace Boomerang
 			AddComponent<RoundsComponent>();
 			AddComponent<CardsPerHandComponent>();
 		}
+
+		std::string type_name() override { return "GameConfig"; }
 	};
 }

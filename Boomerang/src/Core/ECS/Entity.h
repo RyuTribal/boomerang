@@ -35,9 +35,25 @@ namespace Boomerang
             return component->value;
         }
 
+        // String based approach, less type safe and not recommended unless necessary
+
+        Component* GetComponentByName(const std::string& name) const {
+            for (const auto& comp : components) {
+                if (comp.second->type_name() == name) {
+                    return comp.second.get();
+                }
+            }
+            return nullptr;
+        }
+
+        bool HasComponent(std::string name) {
+            return GetComponentByName(name) != nullptr;
+        }
+
         std::unordered_map<std::type_index, std::shared_ptr<Component>>& GetComponents() { return components; }
 
         virtual std::string ToString() { return ""; }
+        virtual std::string type_name() = 0;
 
     private:
         std::unordered_map<std::type_index, std::shared_ptr<Component>> components;

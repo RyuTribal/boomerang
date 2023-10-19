@@ -14,7 +14,9 @@ namespace Boomerang
 
         std::string ToString() override
         {
-            return "Name: " + value;
+            return value;
         }
+
+        std::string type_name() override { return "NameComponent"; }
     };
 }

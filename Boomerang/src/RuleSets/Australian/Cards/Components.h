@@ -14,8 +14,10 @@ namespace Boomerang
 
         std::string ToString() override
         {
-            return "Site: " + std::to_string(value);
+            return std::to_string(value);
         }
+
+        std::string type_name() override { return "SiteComponent"; }
 	};
 
     class RegionComponent : public Component
@@ -27,8 +29,9 @@ namespace Boomerang
 
         std::string ToString() override
         {
-            return "Region: " + value;
+            return value;
         }
+        std::string type_name() override { return "RegionComponent"; }
     };
 
     class NumberComponent : public Component
@@ -39,8 +42,9 @@ namespace Boomerang
 
         std::string ToString() override
         {
-            return "Number: " + std::to_string(value);
+            return std::to_string(value);
         }
+        std::string type_name() override { return "NumberComponent"; }
     };
 
     class CollectionsComponent : public Component
@@ -51,8 +55,9 @@ namespace Boomerang
 
         std::string ToString() override
         {
-            return "Collections: " + value;
+            return value;
         }
+        std::string type_name() override { return "CollectionComponent"; }
     };
 
     class AnimalsComponent : public Component
@@ -63,8 +68,9 @@ namespace Boomerang
 
         std::string ToString() override
         {
-            return "Animals: " + value;
+            return value;
         }
+        std::string type_name() override { return "AnimalsComponent"; }
     };
 
     class ActivitiesComponent : public Component
@@ -75,7 +81,8 @@ namespace Boomerang
 
         std::string ToString() override
         {
-            return "Activities: " + value;
+            return value;
         }
+        std::string type_name() override { return "ActivitiesComponent"; }
     };
 }

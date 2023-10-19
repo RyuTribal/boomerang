@@ -11,6 +11,8 @@ namespace Boomerang {
             // the user to implement this
             return "";
         };
+
+        virtual std::string type_name() = 0;
     };
 
 }

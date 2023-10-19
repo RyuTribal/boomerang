@@ -19,6 +19,8 @@ namespace Boomerang
 			{'W', false},{'X', false}, {'Y', false},
 			{'Z', false},{'*', false}, {'-', false}
 		};
+
+		std::string type_name() override { return "SitesVisitedComponent"; }
     };
 
 	class RegionsCompletedComponent : public Component {
@@ -32,6 +34,8 @@ namespace Boomerang
 		{"Victoria", false},
 		{"Tasmania", false}
 		};
+
+		std::string type_name() override { return "RegionsCompletedComponent"; }
 	};
 
 	class CurrentRoundRegionsComponent : public Component {
@@ -45,16 +49,22 @@ namespace Boomerang
 		{"Victoria", false},
 		{"Tasmania", false}
 		};
+
+		std::string type_name() override { return "CurrentRoundRegionsComponent"; }
 	};
 
 	class ActivitiesTakenComponent : public Component {
 	public:
 		std::unordered_map<std::string, bool> value;
+
+		std::string type_name() override { return "ActivitiesTakenComponent"; }
 	};
 
 	class PointsEachRoundComponent : public Component {
 	public:
 		std::vector<int> value;
+
+		std::string type_name() override { return "PointsEachRoundComponent"; }
 	};
 
 	

@@ -32,7 +32,7 @@ namespace Boomerang
 	{
 		variant()->CheckRulesValidity();
 		NetworkInstance::GetInstance().BroadcastToClients("Game started!");
-		SERVER_INFO("Game has started");
+		GAME_INFO("Game has started");
 		int current_round = 1;
 		while(current_round <= variant()->Rounds())
 		{
@@ -53,7 +53,7 @@ namespace Boomerang
 		msg.message = "Winner: Player " + std::to_string(winner_id);
 
 		NetworkInstance::GetInstance().BroadcastToClients(MessageParser::EncodeMessage(msg));
-		SERVER_INFO("Game ended!");
+		GAME_INFO("Game ended!");
 	}
 
 	void Boomerang::GoThroughCards()
@@ -96,12 +96,12 @@ namespace Boomerang
 
 		std::shared_ptr <std::vector<std::tuple<int, int>>> responses = pool.run_tasks();
 
-		SERVER_INFO("Responses: {0}", responses->size());
+		GAME_INFO("Responses: {0}", responses->size());
 
 		for(std::tuple<int, int> answer : *responses)
 		{
 			GetPlayerById(std::get<0>(answer))->AddToDraft(deck()->GetCardById(std::get<1>(answer)));
-			SERVER_INFO("Player {0} chose: {1}", std::get<0>(answer), std::get<1>(answer));
+			GAME_INFO("Player {0} chose: {1}", std::get<0>(answer), std::get<1>(answer));
 		}
 	}
 
@@ -110,7 +110,7 @@ namespace Boomerang
 		std::tuple<Direction, int>* hand_over_move = variant()->HandOverHand(card_selection_count);
 		if (hand_over_move == nullptr)
 		{
-			SERVER_ERROR("Received NULL on the hand over move");
+			GAME_ERROR("Received NULL on the hand over move");
 			return;
 		}
 		Direction direction = std::get<0>(*hand_over_move);
@@ -149,15 +149,28 @@ namespace Boomerang
 
 	void Boomerang::PrintLatestCards()
 	{
-		Message msg;
-		msg.status = Status::WAITING;
-		msg.message = "Here is what people have picked: \n";
-		for(auto& player : variant()->GetPlayers())
+		
+		for (auto& curr_player : variant()->GetPlayers())
 		{
-			auto test = player.second->GetHand();
-			msg.message += "Player " + std::to_string(player.second->getID()) + ": " + player.second->GetHand()->at(player.second->GetHand()->size() - 1)->ToString() + "\n";
+			Message msg;
+			msg.status = Status::WAITING;
+			msg.message = "\nHere is what people have picked: \n";
+			for (auto& player : variant()->GetPlayers())
+			{
+				auto test = player.second->GetHand();
+				if(curr_player.second->getID() != player.second->getID())
+				{
+					msg.message += "Player " + std::to_string(player.second->getID()) + ": \n" + player.second->DraftToString(true) + "\n";
+				}
+				else
+				{
+					msg.message += "Your hand: \n" + player.second->DraftToString(false) + "\n";
+				}
+				
+			}
+			NetworkInstance::GetInstance().BroadcastToAClient(curr_player.second->getID(), MessageParser::EncodeMessage(msg));
 		}
-		NetworkInstance::GetInstance().BroadcastToClients(MessageParser::EncodeMessage(msg));
+		
 	}
 
 	void Boomerang::HandleScoring(int round)
@@ -186,9 +199,10 @@ namespace Boomerang
 		std::string msg = "The score for round " + std::to_string(round) + " is:\n";
 		for(auto &player: variant()->GetPlayers())
 		{
-			msg += "Player " + std::to_string(player.second->getID()) + " scored: " + std::to_string(player.second->GetScore(round)) + " ";
+			msg += "Player " + std::to_string(player.second->getID()) + " scored: " + std::to_string(player.second->GetScore(round)) + ", ";
 		}
-
+		msg.pop_back();
+		msg.pop_back();
 		Message message;
 		message.status = Status::WAITING;
 		message.message = msg;
