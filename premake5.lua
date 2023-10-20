@@ -9,13 +9,38 @@ workspace "Boomerang"
         "Dist"
     }
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+    outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-IncludeDirs = {}
+    IncludeDirs = {}
+    IncludeDirs["GoogleTest"] = "vendor/gtest/googletest/include"
 
-group "Dependencies"
+    project "GoogleTest"
+    location "vendor/gtest/googletest"
+    kind "StaticLib"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+    
+    files 
+    { 
+        "%{prj.location}/src/gtest-all.cc", 
+        "%{prj.location}/src/*.h"
+    }
 
-group ""
+    includedirs 
+    { 
+        "%{prj.location}",
+        "%{prj.location}/include"
+    }
+
+    filter "configurations:Debug"
+        runtime "Debug"
+        symbols "on"
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "on"
 
 project "Boomerang"
     location "Boomerang"
@@ -23,12 +48,8 @@ project "Boomerang"
     staticruntime "on"
     language "C++"
     cppdialect "C++17"
-
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-    -- pchheader "hvepch.h"
-    -- pchsource "helios/src/hvepch.cpp"
 
     files
     {
@@ -36,23 +57,28 @@ project "Boomerang"
         "%{prj.name}/src/**.hpp",
         "%{prj.name}/src/**.cpp",
         "%{prj.name}/src/**.c",
+        "%{prj.name}/tests/**.h",
+        "%{prj.name}/tests/**.cpp"
     }
 
     includedirs
     {
         "%{prj.name}/vendor/spdlog/include",
-        "%{prj.name}/src"
+        "%{prj.name}/src",
+        IncludeDirs["GoogleTest"]
+    }
+
+    links
+    {
+        "GoogleTest"
     }
 
     filter "system:windows"
         systemversion "latest"
-        defines
-        {
-            "BOOM_PLATFORM_WINDOWS",
-        }
+        defines { "BOOM_PLATFORM_WINDOWS" }
 
     filter "configurations:Debug"
-        defines "Boomerang_DEBUG"
+        defines { "BOOM_INCLUDE_TESTS", "Boomerang_DEBUG" }
         runtime "Debug"
         symbols "on"
 

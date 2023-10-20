@@ -1,4 +1,6 @@
 #pragma once
+#include <unordered_set>
+
 #include "Core/ScoringSystem.h"
 #include "RuleSets/Australian/GameConfig/Components.h"
 #include "RuleSets/Australian/PlayerState/Components.h"
@@ -8,76 +10,60 @@ namespace Boomerang
 	class TouristSiteScoringSystem : public ScoringSystem
 	{
 	public:
-		int UpdateWithArgs(std::vector<Card*>& draft, int player_id, Entity& game_config, std::map<int, std::unique_ptr<Player>>& players) override
-		{
-			/*
-			 *	Tourist sites score: Each card also has a letter (A-Ö) corresponding to a site in Australia. The sites
-			 *	are divided into Australia’s seven regions: Western Australia (A-D), Northern Territory (E-H),
-			 *	Queensland (I-L), South Australia (M-P), New South Wales (Q-T), Victoria (U-X), and Tasmania (Y-Z,
-			 *	*, -). Score one point for each site visited (the letters on the played cards this round) and note down
-			 *	which sites have been visited as they do not score points again in coming rounds, but they count
-			 *	towards completing a region (see below).
-			 *	i. If you are the first player to complete a region you gain 3 bonus points
-			 *	ii. If more than one player completes a region at the same time they all gain the 3 bonus points
-			 */
-			int tourist_points = 0;
-			std::vector<std::string> card_regions{};
-			for (auto& card : draft)
-			{
-				if (!players[player_id]->GetValueOfComponent<SitesVisitedComponent>()[card->GetValueOfComponent<SiteComponent>()])
-				{
-					players[player_id]->GetValueOfComponent<SitesVisitedComponent>()[card->GetValueOfComponent<SiteComponent>()] = true;
-					tourist_points++;
-				}
+        int UpdateWithArgs(std::vector<Card*>& draft, int player_id, Entity& game_config, std::map<int, std::unique_ptr<Player>>& players) override
+        {
+            int tourist_points = 0;
+            std::unordered_set<std::string> regionsCompletedThisRound;
 
-				bool has_been_completed = UpdateRegionCompleted(card->GetValueOfComponent<RegionComponent>(), *players[player_id], game_config);
+            auto& playerSitesVisited = players[player_id]->GetValueOfComponent<SitesVisitedComponent>();
+            auto& playerRegionsCompleted = players[player_id]->GetValueOfComponent<RegionsCompletedComponent>();
 
-				if (has_been_completed)
-				{
-					card_regions.push_back(card->GetValueOfComponent<RegionComponent>());
-				}
-			}
+            // 1. Marking the sites that the player has visited in this round and calculating the points.
+            for (auto& card : draft)
+            {
+                const auto& site = card->GetValueOfComponent<SiteComponent>();
+                if (!playerSitesVisited[site])
+                {
+                    playerSitesVisited[site] = true;
+                    tourist_points++;
+                }
 
-			for (std::string region : card_regions)
-			{
-				if (!RegionHasBeenCompleted(region, players))
-				{
-					tourist_points += 3;
-				}
-			}
+                const auto& region = card->GetValueOfComponent<RegionComponent>();
+                if (UpdateRegionCompleted(region, playerSitesVisited, game_config.GetValueOfComponent<RegionSiteMapComponent>()) && !playerRegionsCompleted[region])
+                {
+                    regionsCompletedThisRound.insert(region);
+                }
+            }
 
-			return tourist_points;
-		}
+            // 2. Checking if the player is the first to complete the region or if others also completed it in this round.
+            for (const auto& region : regionsCompletedThisRound)
+            {
+                if (!RegionHasBeenCompletedThisRound(region, players))
+                {
+                    tourist_points += 3;
+                    playerRegionsCompleted[region] = true;
+                }
+            }
 
-		bool UpdateRegionCompleted(std::string region, Player& player, Entity& game_object)
-		{
-			if (player.GetValueOfComponent<RegionsCompletedComponent>()[region])
-			{
-				return false;
-			}
-			for (char letter : game_object.GetValueOfComponent<RegionSiteMapComponent>()[region])
-			{
-				if (!player.GetValueOfComponent<SitesVisitedComponent>()[letter])
-				{
-					return false;
-				}
-			}
+            return tourist_points;
+        }
 
-			player.GetValueOfComponent<CurrentRoundRegionsComponent>()[region] = true;
-			return true;
-		}
+        bool UpdateRegionCompleted(const std::string& region, std::unordered_map<char, bool>& playerSitesVisited, std::unordered_map<std::string, std::string>& regionSiteMap) {
+            for (char letter : regionSiteMap[region]) {
+                if (!playerSitesVisited[letter]) {
+                    return false;
+                }
+            }
+            return true;
+        }
 
-		bool RegionHasBeenCompleted(std::string region, std::map<int, std::unique_ptr<Player>>& players)
-		{
-			for (auto & player : players)
-			{
-				if (player.second->GetValueOfComponent<RegionsCompletedComponent>()[region])
-				{
-					return false;
-				}
-			}
-
-			return true;
-		}
+        bool RegionHasBeenCompletedThisRound(const std::string& region, std::map<int, std::unique_ptr<Player>>& players) {
+            for (auto& player : players) {
+                if (player.second->GetValueOfComponent<CurrentRoundRegionsComponent>()[region]) {
+                    return true;
+                }
+            }
+            return false;
+        }
 	};
 }

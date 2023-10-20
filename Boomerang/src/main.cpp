@@ -3,11 +3,21 @@
 #include "EntryPoint.h"
 #include "Util/Log.h"
 
+#ifdef BOOM_INCLUDE_TESTS
+#include <gtest/gtest.h>
+	
+#endif
 
 
 
-int main()
+
+int main(int argc, char** argv)
 {
+    if (argc > 1 && strcmp(argv[1], "--run-tests") == 0) {
+        // If the user has provided the "--run-tests" argument, initialize Google Test and run tests
+        ::testing::InitGoogleTest(&argc, argv);
+        return RUN_ALL_TESTS();
+    }
     try
     {
         Boomerang::Log::Init();

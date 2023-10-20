@@ -40,7 +40,7 @@ namespace Boomerang
 
 		void CheckRulesValidity() const
 		{
-			if (!b_RulesInitialized || !b_CardsPerHandInitialized || !b_RoundsInitialized)
+			if (!b_RulesInitialized || !b_CardsPerHandInitialized || !b_RoundsInitialized || players.size() < m_MinPlayers || players.size() > m_MaxPlayers)
 			{
 				std::string err_message = "";
 				if (!b_RulesInitialized) {
@@ -55,6 +55,16 @@ namespace Boomerang
 				if(!b_RoundsInitialized)
 				{
 					err_message += "Forgot to initialize how many rounds there is in a game. Please call SetRounds(int rounds) in order to set it \n";
+				}
+
+				if (players.size() < m_MinPlayers)
+				{
+					err_message += "Too few players \n";
+				}
+
+				if(players.size() > m_MaxPlayers)
+				{
+					err_message += "Too many players \n";
 				}
 
 				HANDLE_ERROR(ErrorType::BOOMERANG, err_message);
@@ -88,6 +98,12 @@ namespace Boomerang
 			return id;
 		}
 
+		void SetMinPlayers(int min_players) { m_MinPlayers = min_players; }
+		void SetMaxPlayers(int max_players) { m_MaxPlayers = max_players; }
+
+		int GetMinPlayers() { return m_MinPlayers; }
+		int GetMaxPlayers() { return m_MaxPlayers; }
+
 		void AddScoringRules(std::unique_ptr<ScoringSystem> rule) { scoring_rules.push_back(std::move(rule)); }
 
 		std::map<int, std::unique_ptr<Player>>& GetPlayers() { return players; }
@@ -100,6 +116,8 @@ namespace Boomerang
 		std::vector<std::tuple<Direction, int>> m_HandOverRules;
 		int m_Rounds;
 		int m_CardsPerHand;
+		int m_MinPlayers = 2;
+		int m_MaxPlayers = 4;
 
 		bool b_RoundsInitialized = false;
 		bool b_CardsPerHandInitialized = false;

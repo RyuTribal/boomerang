@@ -53,7 +53,7 @@ namespace Boomerang
             {"Northern Territory", "EFGH"},
             {"Queensland", "IJKL"},
             {"South Australia", "MNOP"},
-            {"New South Wales", "QRST"},
+            {"New South Whales", "QRST"},
             {"Victoria", "UVWX"},
             {"Tasmania", "YZ*-"}
         };

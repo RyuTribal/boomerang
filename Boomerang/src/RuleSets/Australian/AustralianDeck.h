@@ -7,6 +7,7 @@ namespace Boomerang
 
 	class AustralianDeck : public Deck
 	{
+	public:
         void BuildDeck() override
         {
             AddCard(next_card_id++, "The Bungle Bungles", 'A', "Western Australia", 1, "Leaves", "", "Indigenous Culture");

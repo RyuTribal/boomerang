@@ -45,6 +45,8 @@ namespace Boomerang
 
 		std::vector<std::unique_ptr<Card>>& deck() { return m_Deck; }
 
+		void ResetDeck() { f_ResetDeck(); }
+
 	private:
 		std::vector<std::unique_ptr<Card>> m_Deck;
 		std::queue<int> untakenCardsQueue;
